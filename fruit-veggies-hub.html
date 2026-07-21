@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fruit & Veggies Hub — Order Fresh Produce</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --green-deep:#1F5D3A;
+  --green-leaf:#3C8C56;
+  --green-soft:#DCEBD9;
+  --gold:#EFA20A;
+  --gold-dark:#C97D02;
+  --tomato:#D6452C;
+  --cream:#FBF6EB;
+  --paper:#FFFDF8;
+  --ink:#23291F;
+  --ink-soft:#5B6156;
+  --line:rgba(35,41,31,0.14);
+  --line-soft:rgba(35,41,31,0.08);
+  --radius:18px;
+  --shadow-card:0 2px 0 rgba(35,41,31,0.06), 0 10px 24px -14px rgba(35,41,31,0.35);
+  --shadow-pop:0 20px 60px -20px rgba(35,41,31,0.45);
+  --font-display:'Fraunces', serif;
+  --font-body:'Inter', sans-serif;
+  --font-mono:'Space Mono', monospace;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:var(--font-body);
+  background:var(--cream);
+  color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block;}
+button{font-family:inherit;cursor:pointer;}
+input,select,textarea{font-family:inherit;}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
+a{color:inherit;}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+}
+
+:focus-visible{outline:3px solid var(--gold-dark); outline-offset:2px; border-radius:4px;}
+
+/* ============ TOP UTILITY BAR ============ */
+.mode-switch{
+  background:var(--ink);
+  color:var(--cream);
+  font-family:var(--font-mono);
+  font-size:12.5px;
+  letter-spacing:.02em;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:8px 14px;
+  text-align:center;
+}
+.mode-switch button{
+  background:var(--gold);
+  color:var(--ink);
+  border:none;
+  padding:5px 12px;
+  border-radius:100px;
+  font-family:var(--font-mono);
+  font-weight:700;
+  font-size:12px;
+  transition:transform .15s ease, background .15s ease;
+}
+.mode-switch button:hover{background:#ffb733; transform:translateY(-1px);}
+
+/* ============ HEADER ============ */
+header.site-header{
+  position:sticky; top:0; z-index:40;
+  background:var(--paper);
+  border-bottom:1px solid var(--line);
+}
+.header-inner{
+  max-width:1180px; margin:0 auto;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 20px;
+  gap:16px;
+}
+.brand{display:flex; align-items:center; gap:10px; text-decoration:none;}
+.brand-mark{
+  width:42px;height:42px;border-radius:11px;
+  background:var(--green-deep);
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px; flex-shrink:0;
+  box-shadow:inset 0 -3px 0 rgba(0,0,0,.15);
+}
+.brand-text{display:flex;flex-direction:column;line-height:1.1;}
+.brand-text strong{font-family:var(--font-display); font-weight:700; font-size:19px; color:var(--green-deep);}
+.brand-text span{font-family:var(--font-mono); font-size:10.5px; color:var(--ink-soft); letter-spacing:.04em; text-transform:uppercase;}
+
+.cart-btn{
+  position:relative;
+  display:flex; align-items:center; gap:8px;
+  background:var(--green-deep); color:var(--paper);
+  border:none; border-radius:100px;
+  padding:10px 18px 10px 14px;
+  font-weight:600; font-size:14px;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.cart-btn:hover{transform:translateY(-1px); box-shadow:0 8px 16px -6px rgba(31,93,58,.5);}
+.cart-count{
+  position:absolute; top:-6px; right:-6px;
+  background:var(--tomato); color:#fff;
+  font-family:var(--font-mono); font-size:11px; font-weight:700;
+  width:20px;height:20px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  border:2px solid var(--paper);
+}
+
+/* ============ HERO ============ */
+.hero{
+  position:relative;
+  background:var(--green-deep);
+  overflow:hidden;
+}
+.hero-inner{
+  max-width:1180px; margin:0 auto;
+  display:grid; grid-template-columns:1.1fr 0.9fr;
+  align-items:center;
+  gap:20px;
+  padding:56px 20px 70px;
+}
+.hero-eyebrow{
+  font-family:var(--font-mono); text-transform:uppercase; letter-spacing:.12em;
+  font-size:12px; color:var(--gold);
+  display:flex; align-items:center; gap:8px; margin-bottom:18px;
+}
+.hero-eyebrow::before{content:"";width:22px;height:1px;background:var(--gold);}
+.hero h1{
+  font-family:var(--font-display);
+  font-weight:600;
+  color:var(--paper);
+  font-size:clamp(34px, 5vw, 56px);
+  line-height:1.04;
+  margin:0 0 18px;
+  letter-spacing:-.01em;
+}
+.hero h1 em{font-style:italic; font-weight:500; color:var(--gold);}
+.hero p{
+  color:rgba(251,246,235,.82);
+  font-size:16.5px; line-height:1.6;
+  max-width:440px; margin:0 0 28px;
+}
+.hero-ctas{display:flex; gap:12px; flex-wrap:wrap;}
+.btn-primary{
+  background:var(--gold); color:var(--ink);
+  border:none; border-radius:100px;
+  padding:14px 26px; font-weight:700; font-size:15px;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 20px -8px rgba(239,162,10,.6);}
+.btn-ghost{
+  background:transparent; color:var(--paper);
+  border:1.5px solid rgba(251,246,235,.4); border-radius:100px;
+  padding:13px 24px; font-weight:600; font-size:15px;
+  transition:border-color .15s ease, background .15s ease;
+}
+.btn-ghost:hover{border-color:var(--paper); background:rgba(251,246,235,.08);}
+
+.hero-crate{
+  position:relative;
+  aspect-ratio:1/1;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  transform:rotate(2deg);
+}
+.crate-item{
+  background:var(--cream);
+  border-radius:16px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:38px;
+  box-shadow:var(--shadow-card);
+  transform:rotate(var(--r,0deg));
+}
+.crate-item:nth-child(2){transform:rotate(-4deg) translateY(10px); font-size:44px;}
+.crate-item:nth-child(4){transform:rotate(-3deg);}
+.crate-item:nth-child(5){background:var(--gold); transform:rotate(3deg) translateY(-6px); font-size:46px;}
+.crate-item:nth-child(7){transform:rotate(4deg);}
+.crate-item:nth-child(9){transform:rotate(-2deg) translateY(8px);}
+
+@media (max-width:820px){
+  .hero-inner{grid-template-columns:1fr; padding:40px 20px 44px;}
+  .hero-crate{max-width:320px; margin:8px auto 0;}
+  .hero p{max-width:100%;}
+}
+
+/* ============ SEARCH / FILTER BAR ============ */
+.filter-bar{
+  position:sticky; top:57px; z-index:30;
+  background:var(--cream);
+  border-bottom:1px solid var(--line);
+  padding:16px 20px;
+}
+.filter-inner{max-width:1180px; margin:0 auto; display:flex; gap:14px; align-items:center; flex-wrap:wrap;}
+.search-box{
+  flex:1 1 240px;
+  position:relative;
+  display:flex; align-items:center;
+}
+.search-box svg{position:absolute; left:14px; width:17px; height:17px; color:var(--ink-soft);}
+.search-box input{
+  width:100%;
+  padding:11px 14px 11px 40px;
+  border-radius:100px;
+  border:1.5px solid var(--line);
+  background:var(--paper);
+  font-size:14.5px;
+  color:var(--ink);
+}
+.search-box input:focus{border-color:var(--green-leaf); outline:none;}
+.category-pills{display:flex; gap:8px; flex-wrap:wrap;}
+.pill{
+  border:1.5px solid var(--line);
+  background:var(--paper);
+  color:var(--ink);
+  padding:9px 16px;
+  border-radius:100px;
+  font-size:13.5px; font-weight:600;
+  white-space:nowrap;
+  transition:all .15s ease;
+  display:flex; align-items:center; gap:6px;
+}
+.pill:hover{border-color:var(--green-leaf);}
+.pill.active{background:var(--green-deep); border-color:var(--green-deep); color:var(--paper);}
+
+/* ============ PRODUCT GRID ============ */
+.catalogue{max-width:1180px; margin:0 auto; padding:34px 20px 70px;}
+.catalogue-heading{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:20px; gap:10px; flex-wrap:wrap;}
+.catalogue-heading h2{font-family:var(--font-display); font-size:24px; margin:0; color:var(--green-deep);}
+.catalogue-heading span{font-family:var(--font-mono); font-size:12.5px; color:var(--ink-soft);}
+
+.product-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(210px, 1fr));
+  gap:18px;
+}
+.empty-state{
+  grid-column:1/-1;
+  text-align:center;
+  padding:50px 20px;
+  color:var(--ink-soft);
+  font-size:15px;
+}
+.empty-state strong{display:block; font-family:var(--font-display); font-size:19px; color:var(--ink); margin-bottom:6px;}
+
+/* --- signature product "market tag" card --- */
+.tag-card{
+  position:relative;
+  background:var(--paper);
+  border-radius:var(--radius);
+  border:1px solid var(--line-soft);
+  box-shadow:var(--shadow-card);
+  padding:18px 16px 16px;
+  display:flex; flex-direction:column;
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.tag-card:hover{transform:translateY(-3px); box-shadow:0 16px 30px -16px rgba(35,41,31,.4);}
+.tag-card::before{
+  content:"";
+  position:absolute; top:14px; left:-1px;
+  width:12px; height:12px;
+  background:var(--cream);
+  border:1px solid var(--line-soft);
+  border-left:none;
+  border-radius:0 50% 50% 0;
+}
+.tag-visual{
+  width:100%; aspect-ratio:1/0.85;
+  background:var(--green-soft);
+  border-radius:12px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:52px;
+  margin-bottom:12px;
+  position:relative;
+  overflow:hidden;
+}
+.tag-visual.unavailable{filter:grayscale(1); opacity:.55;}
+.sold-out-stamp{
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  pointer-events:none;
+}
+.sold-out-stamp span{
+  border:2.5px solid var(--tomato); color:var(--tomato);
+  font-family:var(--font-mono); font-weight:700; font-size:11.5px;
+  letter-spacing:.08em; text-transform:uppercase;
+  padding:4px 10px; border-radius:6px;
+  transform:rotate(-10deg);
+  background:rgba(255,253,248,.85);
+}
+.tag-name{font-family:var(--font-display); font-weight:600; font-size:17px; margin:0 0 2px; color:var(--ink);}
+.tag-cat{font-family:var(--font-mono); font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-soft); margin-bottom:10px;}
+.tag-footer{margin-top:auto; display:flex; align-items:center; justify-content:space-between; gap:8px;}
+.tag-price{
+  font-family:var(--font-mono); font-weight:700; font-size:15px;
+  background:var(--gold); color:var(--ink);
+  padding:5px 10px; border-radius:8px;
+  transform:rotate(-2deg);
+  white-space:nowrap;
+}
+.tag-price small{font-weight:400; font-size:10.5px;}
+.add-btn{
+  background:var(--green-deep); color:var(--paper);
+  border:none; border-radius:100px;
+  width:38px; height:38px;
+  font-size:19px; font-weight:600;
+  display:flex; align-items:center; justify-content:center;
+  transition:transform .15s ease, background .15s ease;
+  flex-shrink:0;
+}
+.add-btn:hover{background:var(--green-leaf); transform:scale(1.08);}
+.add-btn:disabled{background:var(--line); color:var(--ink-soft); cursor:not-allowed; transform:none;}
+.qty-stepper{
+  display:flex; align-items:center; gap:0;
+  background:var(--green-deep); border-radius:100px; overflow:hidden;
+}
+.qty-stepper button{
+  background:transparent; color:var(--paper); border:none;
+  width:30px; height:38px; font-size:16px; font-weight:700;
+}
+.qty-stepper button:hover{background:rgba(255,255,255,.15);}
+.qty-stepper span{color:var(--paper); font-family:var(--font-mono); font-size:14px; min-width:20px; text-align:center;}
+
+/* ============ CART DRAWER ============ */
+.overlay{
+  position:fixed; inset:0; background:rgba(35,41,31,.45);
+  z-index:60; opacity:0; pointer-events:none; transition:opacity .25s ease;
+}
+.overlay.open{opacity:1; pointer-events:auto;}
+.drawer{
+  position:fixed; top:0; right:0; height:100%;
+  width:min(420px, 100%);
+  background:var(--paper);
+  z-index:70;
+  transform:translateX(100%);
+  transition:transform .3s cubic-bezier(.22,1,.36,1);
+  display:flex; flex-direction:column;
+  box-shadow:var(--shadow-pop);
+  background-image:repeating-linear-gradient(180deg, transparent, transparent 39px, var(--line-soft) 40px);
+}
+.drawer.open{transform:translateX(0);}
+.drawer-header{
+  padding:20px 22px 16px; border-bottom:1px dashed var(--line);
+  display:flex; align-items:center; justify-content:space-between;
+}
+.drawer-header h3{font-family:var(--font-display); font-size:21px; margin:0; color:var(--green-deep);}
+.icon-btn{
+  background:transparent; border:none; width:34px; height:34px;
+  display:flex; align-items:center; justify-content:center;
+  border-radius:8px; color:var(--ink-soft);
+}
+.icon-btn:hover{background:var(--line-soft); color:var(--ink);}
+.drawer-body{flex:1; overflow-y:auto; padding:10px 22px;}
+.cart-line{
+  display:flex; gap:12px; align-items:center;
+  padding:14px 0; border-bottom:1px solid var(--line-soft);
+}
+.cart-line-emoji{
+  width:48px; height:48px; border-radius:10px; background:var(--green-soft);
+  display:flex; align-items:center; justify-content:center; font-size:24px; flex-shrink:0;
+}
+.cart-line-info{flex:1; min-width:0;}
+.cart-line-info strong{display:block; font-size:14.5px; font-weight:600;}
+.cart-line-info small{color:var(--ink-soft); font-family:var(--font-mono); font-size:11.5px;}
+.cart-line-controls{display:flex; flex-direction:column; align-items:flex-end; gap:6px;}
+.cart-line-remove{background:none; border:none; color:var(--tomato); font-size:11.5px; font-family:var(--font-mono); text-decoration:underline;}
+.drawer-empty{padding:60px 10px; text-align:center; color:var(--ink-soft);}
+.drawer-empty .big{font-size:44px; margin-bottom:10px;}
+.drawer-footer{border-top:1px dashed var(--line); padding:18px 22px 22px; background:var(--paper);}
+.summary-row{display:flex; justify-content:space-between; font-size:14px; color:var(--ink-soft); margin-bottom:6px;}
+.summary-row.total{color:var(--ink); font-weight:700; font-size:18px; font-family:var(--font-display); margin-top:8px;}
+.btn-block{width:100%; text-align:center; display:block;}
+
+/* ============ CHECKOUT MODAL ============ */
+.modal{
+  position:fixed; inset:0; z-index:80;
+  display:flex; align-items:center; justify-content:center;
+  padding:20px;
+  opacity:0; pointer-events:none; transition:opacity .25s ease;
+}
+.modal.open{opacity:1; pointer-events:auto;}
+.modal-card{
+  background:var(--paper); border-radius:20px;
+  max-width:520px; width:100%; max-height:88vh; overflow-y:auto;
+  box-shadow:var(--shadow-pop);
+  transform:translateY(16px); transition:transform .25s ease;
+}
+.modal.open .modal-card{transform:translateY(0);}
+.modal-head{
+  padding:24px 26px 6px; display:flex; justify-content:space-between; align-items:flex-start;
+}
+.modal-head h3{font-family:var(--font-display); font-size:24px; margin:0 0 4px; color:var(--green-deep);}
+.modal-head p{margin:0; color:var(--ink-soft); font-size:13.5px;}
+.modal-body{padding:16px 26px 26px;}
+.field{margin-bottom:16px;}
+.field label{display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:var(--ink);}
+.field .hint{font-size:11.5px; color:var(--ink-soft); font-weight:400; margin-top:4px;}
+.field input, .field textarea{
+  width:100%; padding:12px 14px; border-radius:10px;
+  border:1.5px solid var(--line); background:var(--cream); font-size:14.5px; color:var(--ink);
+}
+.field input:focus, .field textarea:focus{border-color:var(--green-leaf); outline:none; background:var(--paper);}
+.field textarea{resize:vertical; min-height:70px;}
+.field.error input, .field.error textarea{border-color:var(--tomato);}
+.field-error{color:var(--tomato); font-size:12px; margin-top:5px; display:none;}
+.field.error .field-error{display:block;}
+.order-summary-box{
+  background:var(--green-soft); border-radius:14px; padding:16px; margin-bottom:20px;
+}
+.order-summary-box .line{display:flex; justify-content:space-between; font-size:13.5px; padding:4px 0;}
+.order-summary-box .line.total{font-weight:700; font-family:var(--font-display); font-size:17px; border-top:1px dashed rgba(35,41,31,.25); margin-top:6px; padding-top:10px;}
+
+/* ============ CONFIRMATION ============ */
+.confirm-card{text-align:center; padding:36px 26px 30px;}
+.confirm-stamp{
+  width:84px; height:84px; border-radius:50%;
+  background:var(--green-deep); color:var(--paper);
+  display:flex; align-items:center; justify-content:center;
+  margin:0 auto 18px; font-size:38px;
+  box-shadow:0 0 0 6px var(--green-soft);
+}
+.confirm-card h3{font-family:var(--font-display); font-size:26px; margin:0 0 8px; color:var(--green-deep);}
+.confirm-card p{color:var(--ink-soft); font-size:14.5px; line-height:1.6; max-width:360px; margin:0 auto 22px;}
+.order-id-chip{
+  display:inline-block; font-family:var(--font-mono); font-size:12.5px;
+  background:var(--cream); border:1px dashed var(--line); border-radius:100px;
+  padding:6px 14px; margin-bottom:22px; color:var(--ink-soft);
+}
+.whatsapp-btn{
+  display:inline-flex; align-items:center; gap:9px;
+  background:#25D366; color:#fff; border:none; border-radius:100px;
+  padding:14px 26px; font-weight:700; font-size:15px;
+  box-shadow:0 10px 20px -8px rgba(37,211,102,.55);
+  transition:transform .15s ease;
+}
+.whatsapp-btn:hover{transform:translateY(-2px);}
+
+/* ============ ADMIN ============ */
+.admin-shell{max-width:1180px; margin:0 auto; padding:30px 20px 70px;}
+.admin-head{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px; margin-bottom:22px;}
+.admin-head h1{font-family:var(--font-display); font-size:28px; margin:0 0 4px; color:var(--green-deep);}
+.admin-head p{margin:0; color:var(--ink-soft); font-size:13.5px;}
+.admin-tabs{display:flex; gap:8px; margin-bottom:26px; border-bottom:1px solid var(--line); overflow-x:auto;}
+.admin-tab{
+  background:none; border:none; padding:11px 4px; margin-right:22px;
+  font-weight:600; font-size:14.5px; color:var(--ink-soft);
+  border-bottom:2.5px solid transparent; white-space:nowrap;
+}
+.admin-tab.active{color:var(--green-deep); border-color:var(--gold);}
+
+.stat-row{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px; margin-bottom:28px;}
+.stat-card{background:var(--paper); border:1px solid var(--line-soft); border-radius:14px; padding:16px 18px; box-shadow:var(--shadow-card);}
+.stat-card span{display:block; font-family:var(--font-mono); font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-soft); margin-bottom:6px;}
+.stat-card strong{font-family:var(--font-display); font-size:26px; color:var(--green-deep);}
+
+.admin-toolbar{display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:16px; flex-wrap:wrap;}
+.admin-toolbar h2{font-family:var(--font-display); font-size:19px; margin:0; color:var(--ink);}
+
+.product-table{width:100%; border-collapse:collapse; background:var(--paper); border-radius:14px; overflow:hidden; box-shadow:var(--shadow-card);}
+.product-table th{
+  text-align:left; font-family:var(--font-mono); font-size:11px; text-transform:uppercase; letter-spacing:.05em;
+  color:var(--ink-soft); background:var(--green-soft); padding:12px 14px; font-weight:700;
+}
+.product-table td{padding:12px 14px; border-bottom:1px solid var(--line-soft); font-size:14px; vertical-align:middle;}
+.product-table tr:last-child td{border-bottom:none;}
+.p-emoji-cell{font-size:22px; width:40px;}
+.p-name-cell strong{display:block; font-size:14.5px;}
+.p-name-cell small{color:var(--ink-soft); font-family:var(--font-mono); font-size:11px;}
+.price-input{
+  width:80px; padding:7px 9px; border-radius:8px; border:1.5px solid var(--line); background:var(--cream); font-family:var(--font-mono); font-size:13.5px;
+}
+.price-input:focus{border-color:var(--green-leaf); outline:none;}
+.toggle{
+  position:relative; width:42px; height:24px; border-radius:100px; background:var(--line); border:none; flex-shrink:0;
+  transition:background .2s ease;
+}
+.toggle::after{content:""; position:absolute; top:3px; left:3px; width:18px; height:18px; border-radius:50%; background:#fff; transition:transform .2s ease; box-shadow:0 1px 3px rgba(0,0,0,.3);}
+.toggle.on{background:var(--green-leaf);}
+.toggle.on::after{transform:translateX(18px);}
+.row-actions{display:flex; gap:8px;}
+.mini-btn{
+  background:var(--cream); border:1px solid var(--line); border-radius:8px;
+  width:32px; height:32px; display:flex; align-items:center; justify-content:center; color:var(--ink-soft);
+}
+.mini-btn:hover{border-color:var(--ink); color:var(--ink);}
+.mini-btn.danger:hover{border-color:var(--tomato); color:var(--tomato);}
+.unavailable-row{opacity:.55;}
+.badge{font-family:var(--font-mono); font-size:10.5px; padding:3px 9px; border-radius:100px; text-transform:uppercase; letter-spacing:.04em;}
+.badge.in{background:var(--green-soft); color:var(--green-deep);}
+.badge.out{background:#f6dcd5; color:var(--tomato);}
+
+/* responsive table -> cards on mobile */
+@media (max-width:720px){
+  .product-table thead{display:none;}
+  .product-table, .product-table tbody, .product-table tr, .product-table td{display:block; width:100%;}
+  .product-table tr{background:var(--paper); border-radius:14px; box-shadow:var(--shadow-card); margin-bottom:12px; padding:6px 4px;}
+  .product-table td{border:none; padding:8px 14px; display:flex; align-items:center; justify-content:space-between;}
+  .product-table td::before{content:attr(data-label); font-family:var(--font-mono); font-size:10.5px; color:var(--ink-soft); text-transform:uppercase; margin-right:10px;}
+  .p-emoji-cell{justify-content:flex-start !important;}
+}
+
+.add-product-panel{
+  background:var(--paper); border:1px solid var(--line-soft); border-radius:16px; padding:22px;
+  box-shadow:var(--shadow-card); margin-bottom:24px;
+}
+.add-product-panel h3{font-family:var(--font-display); font-size:18px; margin:0 0 16px; color:var(--green-deep);}
+.form-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(130px,1fr)); gap:12px; align-items:end;}
+.form-grid .field{margin-bottom:0;}
+.emoji-select{display:flex; flex-wrap:wrap; gap:6px; max-height:80px; overflow-y:auto; padding:8px; border:1.5px solid var(--line); border-radius:10px; background:var(--cream);}
+.emoji-opt{background:transparent; border:1.5px solid transparent; border-radius:8px; font-size:20px; padding:3px 6px;}
+.emoji-opt.selected{border-color:var(--green-leaf); background:var(--green-soft);}
+
+.order-card{background:var(--paper); border:1px solid var(--line-soft); border-radius:16px; box-shadow:var(--shadow-card); margin-bottom:14px; overflow:hidden;}
+.order-card-head{display:flex; justify-content:space-between; align-items:flex-start; padding:16px 18px 12px; gap:10px; flex-wrap:wrap;}
+.order-card-head strong{font-family:var(--font-display); font-size:17px;}
+.order-card-head small{display:block; font-family:var(--font-mono); font-size:11px; color:var(--ink-soft); margin-top:2px;}
+.order-meta{display:flex; gap:16px; flex-wrap:wrap; padding:0 18px 12px; font-size:13px; color:var(--ink-soft);}
+.order-meta b{color:var(--ink); font-weight:600;}
+.order-items{padding:12px 18px; border-top:1px dashed var(--line); background:var(--cream);}
+.order-items div{display:flex; justify-content:space-between; font-size:13.5px; padding:3px 0; font-family:var(--font-mono);}
+.order-items .total-line{font-weight:700; border-top:1px dashed var(--line); margin-top:6px; padding-top:8px; font-size:14.5px;}
+.order-empty{text-align:center; padding:60px 20px; color:var(--ink-soft);}
+.order-empty .big{font-size:44px; margin-bottom:12px;}
+
+.settings-panel{background:var(--paper); border:1px solid var(--line-soft); border-radius:16px; padding:24px; box-shadow:var(--shadow-card); max-width:560px;}
+.settings-panel h3{font-family:var(--font-display); font-size:19px; margin:0 0 4px; color:var(--green-deep);}
+.settings-panel > p{margin:0 0 20px; color:var(--ink-soft); font-size:13.5px;}
+.save-confirm{display:none; align-items:center; gap:8px; color:var(--green-deep); font-size:13.5px; font-weight:600; margin-top:10px;}
+.save-confirm.show{display:flex;}
+
+footer.site-footer{
+  background:var(--green-deep); color:rgba(251,246,235,.7);
+  text-align:center; padding:24px 20px; font-size:12.5px; font-family:var(--font-mono);
+}
+footer.site-footer strong{color:var(--gold);}
+
+.toast{
+  position:fixed; bottom:22px; left:50%; transform:translateX(-50%) translateY(20px);
+  background:var(--ink); color:var(--paper); padding:12px 20px; border-radius:100px;
+  font-size:13.5px; font-weight:600; z-index:100; box-shadow:var(--shadow-pop);
+  opacity:0; pointer-events:none; transition:all .25s ease; display:flex; align-items:center; gap:8px;
+}
+.toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+
+[data-view="admin"] header.site-header, [data-view="admin"] .hero, [data-view="admin"] .filter-bar, [data-view="admin"] .catalogue, [data-view="admin"] footer.site-footer{display:none;}
+[data-view="shop"] .admin-shell{display:none;}
+</style>
+</head>
+<body data-view="shop">
+
+<div class="mode-switch">
+  <span id="modeSwitchLabel">Demo — viewing as a <strong>Customer</strong></span>
+  <button id="modeSwitchBtn" type="button">Switch to Business View</button>
+</div>
+
+<!-- ===================== CUSTOMER: HEADER ===================== -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="#" class="brand" id="logoHome">
+      <span class="brand-mark">🥬</span>
+      <span class="brand-text"><strong id="brandNameText">Fruit & Veggies Hub</strong><span id="brandTaglineText">Fresh from the market, straight to your door</span></span>
+    </a>
+    <button class="cart-btn" id="openCartBtn" aria-label="Open cart">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+      Cart
+      <span class="cart-count" id="cartCount" style="display:none;">0</span>
+    </button>
+  </div>
+</header>
+
+<!-- ===================== CUSTOMER: HERO ===================== -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">One link · Zero back-and-forth</div>
+      <h1>Order fresh produce,<br><em>skip the messages.</em></h1>
+      <p>Browse today's fruits and vegetables, build your basket, and send your order straight to us on WhatsApp — no calls, no long chats, just fresh produce on the way.</p>
+      <div class="hero-ctas">
+        <button class="btn-primary" id="heroShopBtn">Start shopping</button>
+        <a href="#categories" class="btn-ghost">Browse categories</a>
+      </div>
+    </div>
+    <div class="hero-crate" aria-hidden="true">
+      <div class="crate-item">🍅</div>
+      <div class="crate-item">🍍</div>
+      <div class="crate-item">🥕</div>
+      <div class="crate-item">🥑</div>
+      <div class="crate-item">🍋</div>
+      <div class="crate-item">🥦</div>
+      <div class="crate-item">🍌</div>
+      <div class="crate-item">🌶️</div>
+      <div class="crate-item">🍉</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CUSTOMER: FILTER BAR ===================== -->
+<div class="filter-bar" id="categories">
+  <div class="filter-inner">
+    <div class="search-box">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="text" id="searchInput" placeholder="Search for tomatoes, mango, ginger…" aria-label="Search products">
+    </div>
+    <div class="category-pills" id="categoryPills"></div>
+  </div>
+</div>
+
+<!-- ===================== CUSTOMER: CATALOGUE ===================== -->
+<main class="catalogue">
+  <div class="catalogue-heading">
+    <h2>Today's Selection</h2>
+    <span id="resultCount"></span>
+  </div>
+  <div class="product-grid" id="productGrid"></div>
+</main>
+
+<footer class="site-footer">
+  Made for <strong id="footerBrandName">Fruit & Veggies Hub</strong> · Orders are sent directly to our WhatsApp
+</footer>
+
+<!-- ===================== CART DRAWER ===================== -->
+<div class="overlay" id="drawerOverlay"></div>
+<aside class="drawer" id="cartDrawer" aria-label="Shopping cart">
+  <div class="drawer-header">
+    <h3>Your Basket</h3>
+    <button class="icon-btn" id="closeCartBtn" aria-label="Close cart">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+  <div class="drawer-footer" id="drawerFooter" style="display:none;">
+    <div class="summary-row"><span>Items subtotal</span><span id="drawerSubtotal">₵0.00</span></div>
+    <div class="summary-row total"><span>Total</span><span id="drawerTotal">₵0.00</span></div>
+    <button class="btn-primary btn-block" id="goToCheckoutBtn" style="margin-top:14px;">Checkout on WhatsApp</button>
+  </div>
+</aside>
+
+<!-- ===================== CHECKOUT MODAL ===================== -->
+<div class="modal" id="checkoutModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <div>
+        <h3>Almost there 🧺</h3>
+        <p>Tell us where to send your fresh produce.</p>
+      </div>
+      <button class="icon-btn" id="closeCheckoutBtn" aria-label="Close">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="order-summary-box" id="checkoutSummary"></div>
+      <form id="checkoutForm" novalidate>
+        <div class="field" id="fieldName">
+          <label for="custName">Full name</label>
+          <input type="text" id="custName" placeholder="e.g. Ama Boateng" autocomplete="name">
+          <div class="field-error">Please enter your name.</div>
+        </div>
+        <div class="field" id="fieldPhone">
+          <label for="custPhone">Phone number</label>
+          <input type="tel" id="custPhone" placeholder="e.g. 024 123 4567" autocomplete="tel">
+          <div class="field-error">Please enter a valid phone number.</div>
+        </div>
+        <div class="field" id="fieldLocation">
+          <label for="custLocation">Delivery location</label>
+          <input type="text" id="custLocation" placeholder="e.g. East Legon, near the Shell station" autocomplete="street-address">
+          <div class="field-error">Please tell us where to deliver.</div>
+        </div>
+        <div class="field">
+          <label for="custNotes">Delivery notes <span style="font-weight:400;color:var(--ink-soft);">(optional)</span></label>
+          <textarea id="custNotes" placeholder="Preferred delivery time, landmark, gate code…"></textarea>
+        </div>
+        <button type="submit" class="whatsapp-btn btn-block" style="justify-content:center;">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.04 3.6C7.29 3.6 3.41 7.48 3.41 12.23c0 1.52.4 3 .11 4.35L2 21.6l4.16-1.5c.13-.06.26.08.14.16A9 9 0 0 0 21.6 12.2a8.83 8.83 0 0 0-4-5.88Z" opacity="0"></path><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.06L2 22l5.09-1.33A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2Zm0 18.06c-1.7 0-3.28-.5-4.61-1.36l-.33-.2-3.03.8.81-2.95-.21-.34A7.94 7.94 0 0 1 4 12c0-4.42 3.58-8 8-8s8 3.58 8 8-3.58 8.06-8 8.06Zm4.4-5.97c-.24-.12-1.43-.71-1.65-.79-.22-.08-.38-.12-.54.12-.16.24-.62.79-.76.95-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.92-1.19-.71-.63-1.19-1.4-1.33-1.64-.14-.24-.01-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.31-.74-1.79-.2-.47-.4-.4-.54-.41h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.69 2.58 4.1 3.62.57.25 1.02.4 1.37.51.57.18 1.1.16 1.51.1.46-.07 1.43-.58 1.63-1.15.2-.57.2-1.05.14-1.15-.06-.1-.22-.16-.46-.28Z"></path></svg>
+          Send order on WhatsApp
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== CONFIRMATION MODAL ===================== -->
+<div class="modal" id="confirmModal">
+  <div class="modal-card confirm-card">
+    <div class="confirm-stamp">✅</div>
+    <h3>Order sent!</h3>
+    <p>Your order has been prepared as a WhatsApp message. If a new tab didn't open automatically, tap the button below to send it to us.</p>
+    <div class="order-id-chip" id="confirmOrderId">Order #0000</div>
+    <div>
+      <a href="#" class="whatsapp-btn" id="reopenWhatsappBtn" target="_blank" rel="noopener">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.06L2 22l5.09-1.33A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2Zm0 18.06c-1.7 0-3.28-.5-4.61-1.36l-.33-.2-3.03.8.81-2.95-.21-.34A7.94 7.94 0 0 1 4 12c0-4.42 3.58-8 8-8s8 3.58 8 8-3.58 8.06-8 8.06Zm4.4-5.97c-.24-.12-1.43-.71-1.65-.79-.22-.08-.38-.12-.54.12-.16.24-.62.79-.76.95-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.92-1.19-.71-.63-1.19-1.4-1.33-1.64-.14-.24-.01-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.31-.74-1.79-.2-.47-.4-.4-.54-.41h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.69 2.58 4.1 3.62.57.25 1.02.4 1.37.51.57.18 1.1.16 1.51.1.46-.07 1.43-.58 1.63-1.15.2-.57.2-1.05.14-1.15-.06-.1-.22-.16-.46-.28Z"></path></svg>
+        Open WhatsApp
+      </a>
+    </div>
+    <div style="margin-top:20px;">
+      <button class="btn-ghost" style="color:var(--green-deep); border-color:var(--line);" id="backToShopBtn">← Continue shopping</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== ADMIN SIDE ===================== -->
+<div class="admin-shell">
+  <div class="admin-head">
+    <div>
+      <h1>Business Dashboard</h1>
+      <p>Manage your catalogue and see orders as they come in on WhatsApp.</p>
+    </div>
+  </div>
+
+  <div class="admin-tabs">
+    <button class="admin-tab active" data-tab="products">Products</button>
+    <button class="admin-tab" data-tab="orders">Orders</button>
+    <button class="admin-tab" data-tab="settings">Settings</button>
+  </div>
+
+  <!-- PRODUCTS TAB -->
+  <div class="admin-tab-panel" id="tab-products">
+    <div class="stat-row" id="adminStats"></div>
+
+    <div class="add-product-panel">
+      <h3>Add a new product</h3>
+      <form id="addProductForm">
+        <div class="form-grid">
+          <div class="field">
+            <label for="npName">Name</label>
+            <input type="text" id="npName" placeholder="e.g. Sweet Pepper" required>
+          </div>
+          <div class="field">
+            <label for="npCategory">Category</label>
+            <select id="npCategory">
+              <option value="vegetables">Vegetables</option>
+              <option value="fruits">Fruits</option>
+              <option value="spices">Spices & Herbs</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="npPrice">Price (₵)</label>
+            <input type="number" id="npPrice" min="0" step="0.5" placeholder="12.00" required>
+          </div>
+          <div class="field">
+            <label for="npUnit">Unit</label>
+            <input type="text" id="npUnit" placeholder="kg / piece / bunch" value="kg" required>
+          </div>
+          <div class="field" style="grid-column:1/-1;">
+            <label>Icon</label>
+            <div class="emoji-select" id="emojiSelect"></div>
+          </div>
+        </div>
+        <button type="submit" class="btn-primary" style="margin-top:14px;">Add product</button>
+      </form>
+    </div>
+
+    <div class="admin-toolbar">
+      <h2>Your catalogue</h2>
+      <span style="font-family:var(--font-mono); font-size:12px; color:var(--ink-soft);" id="productTableCount"></span>
+    </div>
+    <table class="product-table">
+      <thead>
+        <tr><th style="width:40px;"></th><th>Product</th><th>Category</th><th>Price</th><th>Status</th><th></th></tr>
+      </thead>
+      <tbody id="adminProductBody"></tbody>
+    </table>
+  </div>
+
+  <!-- ORDERS TAB -->
+  <div class="admin-tab-panel" id="tab-orders" style="display:none;">
+    <div class="admin-toolbar">
+      <h2>Orders received this session</h2>
+      <span style="font-family:var(--font-mono); font-size:12px; color:var(--ink-soft);" id="orderCountLabel"></span>
+    </div>
+    <p style="color:var(--ink-soft); font-size:13.5px; margin-top:-8px; margin-bottom:20px;">
+      In real use, every order arrives as a WhatsApp message on your phone the moment a customer checks out. This list mirrors what you'd receive, for demo purposes.
+    </p>
+    <div id="ordersList"></div>
+  </div>
+
+  <!-- SETTINGS TAB -->
+  <div class="admin-tab-panel" id="tab-settings" style="display:none;">
+    <div class="settings-panel">
+      <h3>Business details</h3>
+      <p>This information is used to build your WhatsApp order link and storefront header.</p>
+      <form id="settingsForm">
+        <div class="field">
+          <label for="setName">Business name</label>
+          <input type="text" id="setName">
+        </div>
+        <div class="field">
+          <label for="setTagline">Tagline</label>
+          <input type="text" id="setTagline">
+        </div>
+        <div class="field">
+          <label for="setPhone">WhatsApp number</label>
+          <input type="text" id="setPhone" placeholder="233201234567">
+          <div class="hint">Include country code, no spaces or plus sign — e.g. 233201234567 for a Ghana number.</div>
+        </div>
+        <button type="submit" class="btn-primary">Save settings</button>
+        <div class="save-confirm" id="saveConfirm">✓ Settings saved</div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ==================================================================
+   STATE  (kept in memory only — this is a front-end demo)
+================================================================== */
+const emojiBank = ['🍅','🧅','🌶️','🍆','🥑','🥦','🥕','🥬','🥒','🫑','🍍','🍉','🍌','🥭','🍊','🍋','🥭','🥥','🫚','🧄','🌿','🍏','🍐','🍇','🍈','🍑','🥔','🌽','🫘'];
+
+let state = {
+  view: 'shop', // shop | admin
+  business: {
+    name: 'Fruit & Veggies Hub',
+    tagline: "Fresh from the market, straight to your door",
+    phone: '233201234567'
+  },
+  products: [
+    { id:'p1', name:'Fresh Tomatoes', category:'vegetables', price:12, unit:'kg', emoji:'🍅', available:true },
+    { id:'p2', name:'Red Onions', category:'vegetables', price:9, unit:'kg', emoji:'🧅', available:true },
+    { id:'p3', name:'Kpakpo Shito Pepper', category:'vegetables', price:15, unit:'kg', emoji:'🌶️', available:true },
+    { id:'p4', name:'Garden Eggs', category:'vegetables', price:8, unit:'kg', emoji:'🍆', available:true },
+    { id:'p5', name:'Fresh Okro', category:'vegetables', price:10, unit:'kg', emoji:'🫛', available:true },
+    { id:'p6', name:'Cabbage', category:'vegetables', price:7, unit:'piece', emoji:'🥬', available:true },
+    { id:'p7', name:'Carrots', category:'vegetables', price:11, unit:'kg', emoji:'🥕', available:true },
+    { id:'p8', name:'Cucumber', category:'vegetables', price:6, unit:'piece', emoji:'🥒', available:true },
+    { id:'p9', name:'Green Beans', category:'vegetables', price:14, unit:'kg', emoji:'🫘', available:false },
+    { id:'p10', name:'Pineapple', category:'fruits', price:15, unit:'piece', emoji:'🍍', available:true },
+    { id:'p11', name:'Watermelon', category:'fruits', price:25, unit:'piece', emoji:'🍉', available:true },
+    { id:'p12', name:'Bananas', category:'fruits', price:8, unit:'bunch', emoji:'🍌', available:true },
+    { id:'p13', name:'Pawpaw', category:'fruits', price:12, unit:'piece', emoji:'🧡', available:true },
+    { id:'p14', name:'Oranges', category:'fruits', price:10, unit:'kg', emoji:'🍊', available:true },
+    { id:'p15', name:'Mangoes', category:'fruits', price:14, unit:'kg', emoji:'🥭', available:true },
+    { id:'p16', name:'Avocado (Pear)', category:'fruits', price:18, unit:'kg', emoji:'🥑', available:true },
+    { id:'p17', name:'Coconut', category:'fruits', price:6, unit:'piece', emoji:'🥥', available:false },
+    { id:'p18', name:'Ginger', category:'spices', price:20, unit:'kg', emoji:'🫚', available:true },
+    { id:'p19', name:'Garlic', category:'spices', price:22, unit:'kg', emoji:'🧄', available:true },
+    { id:'p20', name:'Scent Leaves (Nunum)', category:'spices', price:5, unit:'bunch', emoji:'🌿', available:true }
+  ],
+  cart: {}, // id -> qty
+  orders: [],
+  searchTerm: '',
+  activeCategory: 'all',
+  selectedEmoji: '🍅',
+  orderCounter: 1
+};
+
+const categoryLabels = { all:'All', vegetables:'Vegetables', fruits:'Fruits', spices:'Spices & Herbs' };
+
+/* ==================================================================
+   HELPERS
+================================================================== */
+function money(n){ return '₵' + Number(n).toFixed(2); }
+function $(sel){ return document.querySelector(sel); }
+function $all(sel){ return document.querySelectorAll(sel); }
+function escapeHtml(str){
+  return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+function showToast(msg){
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(showToast._timer);
+  showToast._timer = setTimeout(()=> t.classList.remove('show'), 2200);
+}
+function cartItemCount(){
+  return Object.values(state.cart).reduce((a,b)=>a+b, 0);
+}
+function cartTotal(){
+  return Object.entries(state.cart).reduce((sum,[id,qty])=>{
+    const p = state.products.find(p=>p.id===id);
+    return p ? sum + p.price*qty : sum;
+  },0);
+}
+
+/* ==================================================================
+   RENDER: CATEGORY PILLS
+================================================================== */
+function renderCategoryPills(){
+  const cats = ['all', ...new Set(state.products.map(p=>p.category))];
+  $('#categoryPills').innerHTML = cats.map(c => `
+    <button class="pill ${state.activeCategory===c?'active':''}" data-cat="${c}">${categoryLabels[c] || c}</button>
+  `).join('');
+  $all('.pill').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      state.activeCategory = btn.dataset.cat;
+      renderCategoryPills();
+      renderProducts();
+    });
+  });
+}
+
+/* ==================================================================
+   RENDER: PRODUCT GRID
+================================================================== */
+function renderProducts(){
+  const term = state.searchTerm.trim().toLowerCase();
+  let list = state.products.filter(p=>{
+    const matchesCat = state.activeCategory==='all' || p.category===state.activeCategory;
+    const matchesTerm = !term || p.name.toLowerCase().includes(term);
+    return matchesCat && matchesTerm;
+  });
+
+  $('#resultCount').textContent = list.length + (list.length===1 ? ' item' : ' items');
+
+  if(list.length===0){
+    $('#productGrid').innerHTML = `<div class="empty-state"><strong>Nothing here yet</strong>Try a different search or category.</div>`;
+    return;
+  }
+
+  $('#productGrid').innerHTML = list.map(p=>{
+    const qty = state.cart[p.id] || 0;
+    const controls = !p.available
+      ? `<button class="add-btn" disabled aria-label="Unavailable">✕</button>`
+      : qty>0
+        ? `<div class="qty-stepper">
+             <button data-action="dec" data-id="${p.id}" aria-label="Decrease quantity">−</button>
+             <span>${qty}</span>
+             <button data-action="inc" data-id="${p.id}" aria-label="Increase quantity">+</button>
+           </div>`
+        : `<button class="add-btn" data-action="inc" data-id="${p.id}" aria-label="Add ${escapeHtml(p.name)} to cart">+</button>`;
+
+    return `
+      <div class="tag-card">
+        <div class="tag-visual ${!p.available?'unavailable':''}">
+          ${p.emoji}
+          ${!p.available ? `<div class="sold-out-stamp"><span>Sold out</span></div>` : ''}
+        </div>
+        <div class="tag-name">${escapeHtml(p.name)}</div>
+        <div class="tag-cat">${categoryLabels[p.category] || p.category}</div>
+        <div class="tag-footer">
+          <span class="tag-price">${money(p.price)} <small>/ ${escapeHtml(p.unit)}</small></span>
+          ${controls}
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  $all('[data-action="inc"]').forEach(b=> b.addEventListener('click', ()=> changeQty(b.dataset.id, 1)));
+  $all('[data-action="dec"]').forEach(b=> b.addEventListener('click', ()=> changeQty(b.dataset.id, -1)));
+}
+
+function changeQty(id, delta){
+  const p = state.products.find(p=>p.id===id);
+  if(!p || !p.available) return;
+  const current = state.cart[id] || 0;
+  const next = Math.max(0, current + delta);
+  if(next===0){ delete state.cart[id]; } else { state.cart[id] = next; }
+  renderProducts();
+  renderCartBadge();
+  renderCartDrawer();
+}
+
+/* ==================================================================
+   RENDER: CART BADGE + DRAWER
+================================================================== */
+function renderCartBadge(){
+  const count = cartItemCount();
+  const el = $('#cartCount');
+  el.textContent = count;
+  el.style.display = count>0 ? 'flex' : 'none';
+}
+
+function renderCartDrawer(){
+  const ids = Object.keys(state.cart);
+  if(ids.length===0){
+    $('#drawerBody').innerHTML = `<div class="drawer-empty"><div class="big">🧺</div><strong>Your basket is empty</strong><div style="margin-top:6px;font-size:13.5px;">Add some fresh produce to get started.</div></div>`;
+    $('#drawerFooter').style.display = 'none';
+    return;
+  }
+  $('#drawerFooter').style.display = 'block';
+  $('#drawerBody').innerHTML = ids.map(id=>{
+    const p = state.products.find(p=>p.id===id);
+    const qty = state.cart[id];
+    return `
+      <div class="cart-line">
+        <div class="cart-line-emoji">${p.emoji}</div>
+        <div class="cart-line-info">
+          <strong>${escapeHtml(p.name)}</strong>
+          <small>${money(p.price)} / ${escapeHtml(p.unit)}</small>
+        </div>
+        <div class="cart-line-controls">
+          <div class="qty-stepper" style="background:var(--green-soft);">
+            <button data-action="dec" data-id="${id}" style="color:var(--green-deep);" aria-label="Decrease">−</button>
+            <span style="color:var(--green-deep);">${qty}</span>
+            <button data-action="inc" data-id="${id}" style="color:var(--green-deep);" aria-label="Increase">+</button>
+          </div>
+          <button class="cart-line-remove" data-action="remove" data-id="${id}">Remove</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  $('#drawerSubtotal').textContent = money(cartTotal());
+  $('#drawerTotal').textContent = money(cartTotal());
+
+  $all('#drawerBody [data-action="inc"]').forEach(b=> b.addEventListener('click', ()=> changeQty(b.dataset.id,1)));
+  $all('#drawerBody [data-action="dec"]').forEach(b=> b.addEventListener('click', ()=> changeQty(b.dataset.id,-1)));
+  $all('#drawerBody [data-action="remove"]').forEach(b=> b.addEventListener('click', ()=>{
+    const p = state.products.find(p=>p.id===b.dataset.id);
+    delete state.cart[b.dataset.id];
+    renderProducts(); renderCartBadge(); renderCartDrawer();
+    if(p) showToast(`${p.name} removed from basket`);
+  }));
+}
+
+function openDrawer(){
+  $('#cartDrawer').classList.add('open');
+  $('#drawerOverlay').classList.add('open');
+}
+function closeDrawer(){
+  $('#cartDrawer').classList.remove('open');
+  $('#drawerOverlay').classList.remove('open');
+}
+
+/* ==================================================================
+   CHECKOUT FLOW
+================================================================== */
+function openCheckout(){
+  if(cartItemCount()===0){ showToast('Your basket is empty'); return; }
+  closeDrawer();
+  renderCheckoutSummary();
+  $('#checkoutModal').classList.add('open');
+}
+function closeCheckout(){ $('#checkoutModal').classList.remove('open'); }
+
+function renderCheckoutSummary(){
+  const ids = Object.keys(state.cart);
+  const rows = ids.map(id=>{
+    const p = state.products.find(p=>p.id===id);
+    const qty = state.cart[id];
+    return `<div class="line"><span>${escapeHtml(p.name)} × ${qty} ${escapeHtml(p.unit)}</span><span>${money(p.price*qty)}</span></div>`;
+  }).join('');
+  $('#checkoutSummary').innerHTML = rows + `<div class="line total"><span>Total</span><span>${money(cartTotal())}</span></div>`;
+}
+
+function validateField(inputId, fieldId, validatorFn){
+  const val = $('#'+inputId).value.trim();
+  const ok = validatorFn(val);
+  $('#'+fieldId).classList.toggle('error', !ok);
+  return ok;
+}
+
+$('#checkoutForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const nameOk = validateField('custName','fieldName', v=>v.length>1);
+  const phoneOk = validateField('custPhone','fieldPhone', v=>v.replace(/[^0-9]/g,'').length>=9);
+  const locOk = validateField('custLocation','fieldLocation', v=>v.length>3);
+  if(!nameOk || !phoneOk || !locOk) return;
+
+  const name = $('#custName').value.trim();
+  const phone = $('#custPhone').value.trim();
+  const location = $('#custLocation').value.trim();
+  const notes = $('#custNotes').value.trim();
+
+  const items = Object.entries(state.cart).map(([id,qty])=>{
+    const p = state.products.find(p=>p.id===id);
+    return { id, name:p.name, unit:p.unit, price:p.price, qty };
+  });
+  const total = cartTotal();
+  const order = {
+    id: state.orderCounter++,
+    name, phone, location, notes, items, total,
+    timestamp: new Date()
+  };
+  state.orders.unshift(order);
+
+  const waLink = buildWhatsAppLink(order);
+
+  // reset cart + form
+  state.cart = {};
+  e.target.reset();
+  renderProducts(); renderCartBadge(); renderCartDrawer();
+
+  closeCheckout();
+  showConfirmation(order, waLink);
+  window.open(waLink, '_blank');
+  showToast(`Order #${String(order.id).padStart(4,'0')} sent on WhatsApp ✅`);
+  renderAdminOrders();
+  renderAdminStats();
+});
+
+function buildWhatsAppLink(order){
+  const lines = [];
+  lines.push(`🛒 *New Order — ${state.business.name}*`);
+  lines.push('');
+  lines.push(`👤 Name: ${order.name}`);
+  lines.push(`📞 Phone: ${order.phone}`);
+  lines.push(`📍 Location: ${order.location}`);
+  lines.push('');
+  lines.push('*Order Items:*');
+  order.items.forEach((it,i)=>{
+    lines.push(`${i+1}. ${it.name} × ${it.qty} ${it.unit} — ${money(it.price*it.qty)}`);
+  });
+  lines.push('');
+  lines.push(`💰 *Total: ${money(order.total)}*`);
+  if(order.notes){ lines.push(''); lines.push(`📝 Notes: ${order.notes}`); }
+  lines.push('');
+  lines.push(`Order #${String(order.id).padStart(4,'0')}`);
+  const text = encodeURIComponent(lines.join('\n'));
+  return `https://wa.me/${state.business.phone}?text=${text}`;
+}
+
+function showConfirmation(order, waLink){
+  $('#confirmOrderId').textContent = `Order #${String(order.id).padStart(4,'0')}`;
+  $('#reopenWhatsappBtn').href = waLink;
+  $('#confirmModal').classList.add('open');
+}
+
+/* ==================================================================
+   MODE SWITCH  (shop <-> admin)
+================================================================== */
+function setView(view){
+  state.view = view;
+  document.body.dataset.view = view;
+  if(view==='admin'){
+    $('#modeSwitchLabel').innerHTML = 'Demo — viewing as the <strong>Business</strong>';
+    $('#modeSwitchBtn').textContent = 'Switch to Customer View';
+    renderAdmin();
+  } else {
+    $('#modeSwitchLabel').innerHTML = 'Demo — viewing as a <strong>Customer</strong>';
+    $('#modeSwitchBtn').textContent = 'Switch to Business View';
+  }
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+$('#modeSwitchBtn').addEventListener('click', ()=> setView(state.view==='shop' ? 'admin' : 'shop'));
+
+/* ==================================================================
+   ADMIN: RENDER
+================================================================== */
+function renderAdmin(){
+  renderAdminStats();
+  renderAdminProducts();
+  renderAdminOrders();
+  renderEmojiSelect();
+  populateSettingsForm();
+}
+
+function renderAdminStats(){
+  const total = state.products.length;
+  const available = state.products.filter(p=>p.available).length;
+  const ordersToday = state.orders.length;
+  const revenue = state.orders.reduce((s,o)=>s+o.total,0);
+  $('#adminStats').innerHTML = `
+    <div class="stat-card"><span>Total products</span><strong>${total}</strong></div>
+    <div class="stat-card"><span>In stock</span><strong>${available}</strong></div>
+    <div class="stat-card"><span>Orders (session)</span><strong>${ordersToday}</strong></div>
+    <div class="stat-card"><span>Revenue (session)</span><strong>${money(revenue)}</strong></div>
+  `;
+}
+
+function renderAdminProducts(){
+  $('#productTableCount').textContent = state.products.length + ' products';
+  $('#adminProductBody').innerHTML = state.products.map(p=>`
+    <tr class="${!p.available?'unavailable-row':''}">
+      <td class="p-emoji-cell" data-label="Icon">${p.emoji}</td>
+      <td class="p-name-cell" data-label="Product"><strong>${escapeHtml(p.name)}</strong><small>${escapeHtml(p.unit)}</small></td>
+      <td data-label="Category">${categoryLabels[p.category]||p.category}</td>
+      <td data-label="Price">
+        <span style="display:flex;align-items:center;gap:4px;">₵
+          <input class="price-input" type="number" min="0" step="0.5" value="${p.price}" data-action="price" data-id="${p.id}">
+        </span>
+      </td>
+      <td data-label="Status">
+        <button class="toggle ${p.available?'on':''}" data-action="toggle" data-id="${p.id}" aria-label="Toggle availability" title="${p.available?'In stock — click to mark unavailable':'Unavailable — click to mark in stock'}"></button>
+        <span class="badge ${p.available?'in':'out'}" style="margin-left:8px;">${p.available?'In stock':'Sold out'}</span>
+      </td>
+      <td data-label="">
+        <div class="row-actions">
+          <button class="mini-btn danger" data-action="delete" data-id="${p.id}" aria-label="Remove product" title="Remove product">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6M14 11v6"></path></svg>
+          </button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+
+  $all('[data-action="price"]').forEach(inp=>{
+    inp.addEventListener('change', ()=>{
+      const p = state.products.find(p=>p.id===inp.dataset.id);
+      const val = parseFloat(inp.value);
+      if(!isNaN(val) && val>=0){ p.price = val; showToast(`Updated price for ${p.name}`); renderProducts(); }
+    });
+  });
+  $all('[data-action="toggle"]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const p = state.products.find(p=>p.id===btn.dataset.id);
+      p.available = !p.available;
+      renderAdminProducts(); renderAdminStats(); renderProducts();
+      showToast(`${p.name} marked as ${p.available?'in stock':'sold out'}`);
+    });
+  });
+  $all('[data-action="delete"]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const p = state.products.find(p=>p.id===btn.dataset.id);
+      if(!p) return;
+      state.products = state.products.filter(x=>x.id!==p.id);
+      delete state.cart[p.id];
+      renderAdminProducts(); renderAdminStats(); renderProducts(); renderCartBadge(); renderCartDrawer(); renderCategoryPills();
+      showToast(`${p.name} removed from catalogue`);
+    });
+  });
+}
+
+function renderEmojiSelect(){
+  $('#emojiSelect').innerHTML = emojiBank.map(e=>`<button type="button" class="emoji-opt ${e===state.selectedEmoji?'selected':''}" data-emoji="${e}">${e}</button>`).join('');
+  $all('.emoji-opt').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      state.selectedEmoji = btn.dataset.emoji;
+      $all('.emoji-opt').forEach(b=>b.classList.remove('selected'));
+      btn.classList.add('selected');
+    });
+  });
+}
+
+$('#addProductForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const name = $('#npName').value.trim();
+  const category = $('#npCategory').value;
+  const price = parseFloat($('#npPrice').value);
+  const unit = $('#npUnit').value.trim() || 'kg';
+  if(!name || isNaN(price) || price<0){ showToast('Please fill in the product details'); return; }
+  const id = 'p' + Date.now();
+  state.products.push({ id, name, category, price, unit, emoji: state.selectedEmoji, available:true });
+  e.target.reset();
+  $('#npUnit').value = 'kg';
+  renderAdminProducts(); renderAdminStats(); renderProducts(); renderCategoryPills();
+  showToast(`${name} added to your catalogue`);
+});
+
+function renderAdminOrders(){
+  $('#orderCountLabel').textContent = state.orders.length + (state.orders.length===1?' order':' orders');
+  if(state.orders.length===0){
+    $('#ordersList').innerHTML = `<div class="order-empty"><div class="big">📭</div><strong style="font-family:var(--font-display);font-size:18px;">No orders yet</strong><div style="margin-top:6px;">Orders placed by customers will show up here.</div></div>`;
+    return;
+  }
+  $('#ordersList').innerHTML = state.orders.map(o=>`
+    <div class="order-card">
+      <div class="order-card-head">
+        <div>
+          <strong>${escapeHtml(o.name)}</strong>
+          <small>${o.timestamp.toLocaleString()}</small>
+        </div>
+        <span class="badge in">Order #${String(o.id).padStart(4,'0')}</span>
+      </div>
+      <div class="order-meta">
+        <span>📞 <b>${escapeHtml(o.phone)}</b></span>
+        <span>📍 <b>${escapeHtml(o.location)}</b></span>
+        ${o.notes ? `<span>📝 <b>${escapeHtml(o.notes)}</b></span>` : ''}
+      </div>
+      <div class="order-items">
+        ${o.items.map(it=>`<div><span>${escapeHtml(it.name)} × ${it.qty} ${escapeHtml(it.unit)}</span><span>${money(it.price*it.qty)}</span></div>`).join('')}
+        <div class="total-line"><span>Total</span><span>${money(o.total)}</span></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function populateSettingsForm(){
+  $('#setName').value = state.business.name;
+  $('#setTagline').value = state.business.tagline;
+  $('#setPhone').value = state.business.phone;
+}
+$('#settingsForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const newName = $('#setName').value.trim() || state.business.name;
+  const newTagline = $('#setTagline').value.trim() || state.business.tagline;
+  const newPhone = $('#setPhone').value.trim().replace(/[^0-9]/g,'') || state.business.phone;
+
+  state.business.name = newName;
+  state.business.tagline = newTagline;
+  state.business.phone = newPhone;
+
+  // reflect changes immediately across the storefront
+  $('#brandNameText').textContent = state.business.name;
+  $('#brandTaglineText').textContent = state.business.tagline;
+  $('#footerBrandName').textContent = state.business.name;
+  document.title = state.business.name + ' — Order Fresh Produce';
+
+  // re-populate the form so the saved values are visibly confirmed
+  populateSettingsForm();
+
+  const c = $('#saveConfirm');
+  c.classList.add('show');
+  clearTimeout(populateSettingsForm._hideTimer);
+  populateSettingsForm._hideTimer = setTimeout(()=>c.classList.remove('show'), 2800);
+
+  showToast('Business details saved ✅');
+});
+
+/* admin tabs */
+$all('.admin-tab').forEach(tab=>{
+  tab.addEventListener('click', ()=>{
+    $all('.admin-tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    $all('.admin-tab-panel').forEach(p=> p.style.display='none');
+    $('#tab-'+tab.dataset.tab).style.display='block';
+  });
+});
+
+/* ==================================================================
+   WIRE UP GLOBAL EVENTS
+================================================================== */
+$('#openCartBtn').addEventListener('click', openDrawer);
+$('#closeCartBtn').addEventListener('click', closeDrawer);
+$('#drawerOverlay').addEventListener('click', closeDrawer);
+$('#goToCheckoutBtn').addEventListener('click', openCheckout);
+$('#closeCheckoutBtn').addEventListener('click', closeCheckout);
+$('#checkoutModal').addEventListener('click', (e)=>{ if(e.target.id==='checkoutModal') closeCheckout(); });
+$('#backToShopBtn').addEventListener('click', ()=> $('#confirmModal').classList.remove('open'));
+$('#confirmModal').addEventListener('click', (e)=>{ if(e.target.id==='confirmModal') $('#confirmModal').classList.remove('open'); });
+$('#heroShopBtn').addEventListener('click', ()=> document.querySelector('.catalogue').scrollIntoView({behavior:'smooth'}));
+$('#logoHome').addEventListener('click', (e)=> e.preventDefault());
+$('#searchInput').addEventListener('input', (e)=>{ state.searchTerm = e.target.value; renderProducts(); });
+
+/* ==================================================================
+   INIT
+================================================================== */
+renderCategoryPills();
+renderProducts();
+renderCartBadge();
+renderCartDrawer();
+renderEmojiSelect();
+</script>
+</body>
+</html>
