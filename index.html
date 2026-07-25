@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-suffix="Fresh Produce, Delivered">Fruit & Veggies Hub — Fresh Produce, Delivered</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="demo-bar">
+  <strong>Welcome to the Interactive Demo ‣</strong> Explore the customer experience and the admin dashboard to see the platform in action.
+</div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">🥬</span>
+      <span class="brand-text"><strong data-brand-name>Fruit & Veggies Hub</strong><span data-brand-tagline>Fresh from the market, straight to your door</span></span>
+    </a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="index.html" class="nav-link active">Home</a>
+      <a href="customer.html" class="nav-link">Shop</a>
+      <!-- <a href="admin.html" class="nav-link admin-link">Business Dashboard</a> -->
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <!-- <div class="hero-eyebrow">One link · Zero back-and-forth</div> -->
+      <h1>Order fresh produce,<br><em>straight from the farms.</em></h1>
+      <p>Browse, build a basket, and send their order straight to our WhatsApp Inbox. No cringe messages, no long talks, just fresh produce delivered to your door step.</p>
+      <div class="hero-ctas">
+        <a href="customer.html" class="btn-primary">Start shopping →</a>
+        <!-- <a href="admin.html" class="btn-ghost on-dark">View business dashboard</a> -->
+      </div>
+    </div>
+    <div class="hero-crate" aria-hidden="true">
+      <div class="crate-item">🍅</div>
+      <div class="crate-item">🍍</div>
+      <div class="crate-item">🥕</div>
+      <div class="crate-item">🥑</div>
+      <div class="crate-item">🍋</div>
+      <div class="crate-item">🥦</div>
+      <div class="crate-item">🍌</div>
+      <div class="crate-item">🌶️</div>
+      <div class="crate-item">🍉</div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <span class="eyebrow">How it works</span>
+    <h2>Order in Three Simple Steps</h2>
+    <p>Shop, checkout, and confirm your order on WhatsApp. It's simple, and requires no registration.</p>
+  </div>
+  <div class="how-grid">
+    <div class="how-card">
+    <div class="how-step">1</div>
+    <h3>Shop Your Favorites</h3>
+    <p>Browse our catalog and add your chosen items to the cart.</p>
+    </div>
+
+    <div class="how-card">
+      <div class="how-step">2</div>
+      <h3>Checkout in Seconds</h3>
+      <p>Enter your delivery details, no account or sign-up required.</p>
+    </div>
+
+    <div class="how-card">
+      <div class="how-step">3</div>
+      <h3>Send via WhatsApp</h3>
+      <p>Review your order, send it through WhatsApp, and we'll take care of the rest.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="categoryPreviewSection">
+  <div class="section-head">
+    <span class="eyebrow">What's fresh today</span>
+    <h2>Shop by category</h2>
+    <p>A quick look at what's available right now.</p>
+  </div>
+  <div class="category-preview-grid" id="categoryPreviewGrid"></div>
+</section>
+
+<div class="cta-banner">
+  <h2>Ready to place an order?</h2>
+  <p>Jump straight into the storefront and see how simple ordering can be.</p>
+  <a href="customer.html" class="btn-primary">Browse the catalogue →</a>
+</div>
+
+<footer class="site-footer">
+  Made for <strong data-brand-name>Fruit & Veggies Hub</strong> · By <a href="https://joeokat.vercel.app/">JoeOkat LLC</a> ·
+  <a href="admin.html">Business owner? Go to dashboard</a>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/store.js"></script>
+<script>
+  Store.applyBrandToPage();
+
+  const categoryMeta = {
+    vegetables: { label: 'Vegetables', emoji: '🥦🥕🍅' },
+    fruits: { label: 'Fruits', emoji: '🍍🍌🥭' },
+    spices: { label: 'Spices & Herbs', emoji: '🧄🫚🌿' }
+  };
+
+  function renderCategoryPreview(){
+    const products = Store.getProducts();
+    const grid = document.getElementById('categoryPreviewGrid');
+    const cats = [...new Set(products.map(p => p.category))];
+
+    grid.innerHTML = cats.map(cat => {
+      const count = products.filter(p => p.category === cat && p.available).length;
+      const meta = categoryMeta[cat] || { label: cat, emoji: '🧺' };
+      return `
+        <a class="category-preview-card" href="customer.html?category=${encodeURIComponent(cat)}">
+          <span class="emoji-cluster">${meta.emoji}</span>
+          <h3>${meta.label}</h3>
+          <span>${count} item${count===1?'':'s'} available</span>
+        </a>
+      `;
+    }).join('');
+  }
+  renderCategoryPreview();
+</script>
+</body>
+</html>

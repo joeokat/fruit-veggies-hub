@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-suffix="Shop Fresh Produce">Fruit & Veggies Hub — Shop Fresh Produce</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="demo-bar">Experience the <strong>ordering flow ‣</strong> Add items, check out, and the order opens on WhatsApp.</div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">🥬</span>
+      <span class="brand-text"><strong data-brand-name>Fruit & Veggies Hub</strong><span data-brand-tagline>Fresh from the market, straight to your door</span></span>
+    </a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="customer.html" class="nav-link active">Shop</a>
+      <!-- <a href="admin.html" class="nav-link admin-link">Business Dashboard</a> -->
+       
+      <button class="cart-btn" id="openCartBtn" aria-label="Open cart">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+      My Basket
+      <span class="cart-count" id="cartCount" style="display:none;">0</span>
+    </button>
+    </nav>
+  </div>
+</header>
+
+<div class="filter-bar">
+  <div class="filter-inner">
+    <div class="search-box">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="text" id="searchInput" placeholder="Search for tomatoes, mango, ginger…" aria-label="Search products">
+    </div>
+    <div class="category-pills" id="categoryPills"></div>
+  </div>
+</div>
+
+<main class="catalogue">
+  <div class="catalogue-heading">
+    <h2>Today's Selection</h2>
+    <span id="resultCount"></span>
+  </div>
+  <div class="product-grid" id="productGrid"></div>
+</main>
+
+<footer class="site-footer">
+  Orders are sent directly to our WhatsApp
+</footer>
+
+<!-- Cart drawer -->
+<div class="overlay" id="drawerOverlay"></div>
+<aside class="drawer" id="cartDrawer" aria-label="Shopping cart">
+  <div class="drawer-header">
+    <h3>Your Basket</h3>
+    <button class="icon-btn" id="closeCartBtn" aria-label="Close cart">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+  <div class="drawer-footer" id="drawerFooter" style="display:none;">
+    <div class="summary-row"><span>Items subtotal</span><span id="drawerSubtotal">₵0.00</span></div>
+    <div class="summary-row total"><span>Total</span><span id="drawerTotal">₵0.00</span></div>
+    <button class="btn-primary btn-block" id="goToCheckoutBtn" style="margin-top:14px;">Checkout on WhatsApp</button>
+  </div>
+</aside>
+
+<!-- Checkout modal -->
+<div class="modal" id="checkoutModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <div>
+        <h3>🧺 Almost there</h3>
+        <p>Tell us where to send your fresh produce.</p>
+      </div>
+      <button class="icon-btn" id="closeCheckoutBtn" aria-label="Close">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="order-summary-box" id="checkoutSummary"></div>
+      <form id="checkoutForm" novalidate>
+        <div class="field" id="fieldName">
+          <label for="custName">Full name</label>
+          <input type="text" id="custName" placeholder="e.g. Ama Boateng" autocomplete="name">
+          <div class="field-error">Please enter your name.</div>
+        </div>
+        <div class="field" id="fieldPhone">
+          <label for="custPhone">Phone number</label>
+          <input type="tel" id="custPhone" placeholder="e.g. 024 123 4567" autocomplete="tel">
+          <div class="field-error">Please enter a valid phone number.</div>
+        </div>
+        <div class="field" id="fieldLocation">
+          <label for="custLocation">Delivery location</label>
+          <input type="text" id="custLocation" placeholder="e.g. East Legon, near the Shell station" autocomplete="street-address">
+          <div class="field-error">Please tell us where to deliver.</div>
+        </div>
+        <div class="field">
+          <label for="custNotes">Delivery notes <span style="font-weight:400;color:var(--ink-soft);">(optional)</span></label>
+          <textarea id="custNotes" placeholder="Preferred delivery time, landmark, gate code…"></textarea>
+        </div>
+        <button type="submit" class="whatsapp-btn btn-block" style="justify-content:center;">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.06L2 22l5.09-1.33A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2Zm0 18.06c-1.7 0-3.28-.5-4.61-1.36l-.33-.2-3.03.8.81-2.95-.21-.34A7.94 7.94 0 0 1 4 12c0-4.42 3.58-8 8-8s8 3.58 8 8-3.58 8.06-8 8.06Zm4.4-5.97c-.24-.12-1.43-.71-1.65-.79-.22-.08-.38-.12-.54.12-.16.24-.62.79-.76.95-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.92-1.19-.71-.63-1.19-1.4-1.33-1.64-.14-.24-.01-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.31-.74-1.79-.2-.47-.4-.4-.54-.41h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.69 2.58 4.1 3.62.57.25 1.02.4 1.37.51.57.18 1.1.16 1.51.1.46-.07 1.43-.58 1.63-1.15.2-.57.2-1.05.14-1.15-.06-.1-.22-.16-.46-.28Z"></path></svg>
+          Send order on WhatsApp
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Confirmation modal -->
+<div class="modal" id="confirmModal">
+  <div class="modal-card confirm-card">
+    <div class="confirm-stamp">✅</div>
+    <h3>Order sent!</h3>
+    <p>🚀 Your order is on the way. If a new tab didn't open automatically, tap the button below to send it to us.</p>
+    <div class="order-id-chip" id="confirmOrderId">Order #0000</div>
+    <div>
+      <a href="#" class="whatsapp-btn" id="reopenWhatsappBtn" target="_blank" rel="noopener">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.06L2 22l5.09-1.33A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2Zm0 18.06c-1.7 0-3.28-.5-4.61-1.36l-.33-.2-3.03.8.81-2.95-.21-.34A7.94 7.94 0 0 1 4 12c0-4.42 3.58-8 8-8s8 3.58 8 8-3.58 8.06-8 8.06Zm4.4-5.97c-.24-.12-1.43-.71-1.65-.79-.22-.08-.38-.12-.54.12-.16.24-.62.79-.76.95-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.92-1.19-.71-.63-1.19-1.4-1.33-1.64-.14-.24-.01-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.31-.74-1.79-.2-.47-.4-.4-.54-.41h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.69 2.58 4.1 3.62.57.25 1.02.4 1.37.51.57.18 1.1.16 1.51.1.46-.07 1.43-.58 1.63-1.15.2-.57.2-1.05.14-1.15-.06-.1-.22-.16-.46-.28Z"></path></svg>
+        Open WhatsApp
+      </a>
+    </div>
+    <div style="margin-top:20px;">
+      <button class="btn-ghost" id="backToShopBtn">← Continue shopping</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/store.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/catalogue.js"></script>
+<script>
+  Store.applyBrandToPage();
+  Cart.init();
+  Catalogue.init();
+</script>
+</body>
+</html>

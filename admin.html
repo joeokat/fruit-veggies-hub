@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-suffix="Business Dashboard">Fruit & Veggies Hub — Business Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="demo-bar">
+  <strong>Admin Demo ‣</strong> Add, Remove, and Edit products, categories, and settings to see how updates appear on the customer storefront.
+</div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">🥬</span>
+      <span class="brand-text"><strong data-brand-name>Fruit & Veggies Hub</strong><span data-brand-tagline>Fresh from the market, straight to your door</span></span>
+    </a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="customer.html" class="nav-link">Shop</a>
+      <a href="admin.html" class="nav-link admin-link active">Admin Page</a>
+    </nav>
+  </div>
+</header>
+
+<div class="admin-shell">
+  <div class="admin-head">
+    <div>
+      <h1>👋🏽🙂 Hello Belinda </h1>
+      <p>Manage your catalogue and see orders as they come in on WhatsApp.</p>
+    </div>
+  </div>
+
+  <div class="admin-tabs">
+    <button class="admin-tab active" data-tab="products">Products</button>
+    <button class="admin-tab" data-tab="orders">Orders</button>
+    <button class="admin-tab" data-tab="settings">Settings</button>
+  </div>
+
+  <!-- PRODUCTS TAB -->
+  <div class="admin-tab-panel" id="tab-products">
+    <div class="stat-row" id="adminStats"></div>
+
+    <div class="add-product-panel">
+      <h3>Add a new product</h3>
+      <form id="addProductForm">
+        <div class="form-grid">
+          <div class="field">
+            <label for="npName">Name</label>
+            <input type="text" id="npName" placeholder="e.g. Sweet Pepper" required>
+          </div>
+          <div class="field">
+            <label for="npCategory">Category</label>
+            <select id="npCategory">
+              <option value="vegetables">Vegetables</option>
+              <option value="fruits">Fruits</option>
+              <option value="spices">Spices & Herbs</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="npPrice">Price (₵)</label>
+            <input type="number" id="npPrice" min="0" step="0.5" placeholder="12.00" required>
+          </div>
+          <div class="field">
+            <label for="npUnit">Unit</label>
+            <input type="text" id="npUnit" placeholder="kg / piece / bunch" value="kg" required>
+          </div>
+          <div class="field" style="grid-column:1/-1;">
+            <label for="npImage">Photo URL <span style="font-weight:400;color:var(--ink-soft);">(optional — leave blank to use an icon)</span></label>
+            <input type="text" id="npImage" placeholder="assets/images/your-photo.jpg or a full https:// link">
+          </div>
+          <div class="field" style="grid-column:1/-1;">
+            <label>Icon <span style="font-weight:400;color:var(--ink-soft);">(used if no photo is set)</span></label>
+            <div class="emoji-select" id="emojiSelect"></div>
+          </div>
+        </div>
+        <button type="submit" class="btn-primary" style="margin-top:14px;">Add product</button>
+      </form>
+    </div>
+
+    <div class="admin-toolbar">
+      <h2>Your catalogue</h2>
+      <span style="font-family:var(--font-mono); font-size:12px; color:var(--ink-soft);" id="productTableCount"></span>
+    </div>
+    <table class="product-table">
+      <thead>
+        <tr><th style="width:40px;"></th><th>Product</th><th>Category</th><th>Price</th><th>Status</th><th></th></tr>
+      </thead>
+      <tbody id="adminProductBody"></tbody>
+    </table>
+  </div>
+
+  <!-- ORDERS TAB -->
+  <div class="admin-tab-panel" id="tab-orders" style="display:none;">
+    <div class="admin-toolbar">
+      <h2>Orders received</h2>
+      <span style="font-family:var(--font-mono); font-size:12px; color:var(--ink-soft);" id="orderCountLabel"></span>
+    </div>
+    <p style="color:var(--ink-soft); font-size:13.5px; margin-top:-8px; margin-bottom:20px;">
+      In real use, every order arrives as a WhatsApp message on your phone the moment a customer checks out. This list mirrors what you'd receive, for demo purposes.
+    </p>
+    <div id="ordersList"></div>
+  </div>
+
+  <!-- SETTINGS TAB -->
+  <div class="admin-tab-panel" id="tab-settings" style="display:none;">
+    <div class="settings-panel">
+      <h3>Business details</h3>
+      <p>This information is used to build your WhatsApp order link and storefront header.</p>
+      <form id="settingsForm">
+        <div class="field">
+          <label for="setName">Business name</label>
+          <input type="text" id="setName">
+        </div>
+        <div class="field">
+          <label for="setTagline">Tagline</label>
+          <input type="text" id="setTagline">
+        </div>
+        <div class="field">
+          <label for="setPhone">WhatsApp number</label>
+          <input type="text" id="setPhone" placeholder="233201234567">
+          <div class="hint">Include country code, no spaces or plus sign — e.g. 233201234567 for a Ghana number.</div>
+        </div>
+        <button type="submit" class="btn-primary">Save settings</button>
+        <div class="save-confirm" id="saveConfirm">✓ Settings saved</div>
+      </form>
+
+      <div class="reset-panel">
+        <p>Testing the demo? You can wipe all local changes (products, orders, settings) and start over from the defaults.</p>
+        <button type="button" class="btn-danger-ghost" id="resetDemoBtn">Reset demo data</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/store.js"></script>
+<script src="js/admin.js"></script>
+<script>
+  Store.applyBrandToPage();
+  Admin.init();
+</script>
+</body>
+</html>
