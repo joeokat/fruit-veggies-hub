@@ -148,21 +148,11 @@ header.site-header{
 .hero-ctas{display:flex; gap:12px; flex-wrap:wrap;}
 .hero-ctas a {text-decoration: none;}
 
-.hero-crate{position:relative; aspect-ratio:1/1; display:grid; grid-template-columns:repeat(3,1fr); gap:12px; transform:rotate(2deg);}
-.crate-item{
-  background:var(--cream); border-radius:16px;
-  display:flex; align-items:center; justify-content:center;
-  font-size:38px; box-shadow:var(--shadow-card);
-}
-.crate-item:nth-child(2){transform:rotate(-4deg) translateY(10px); font-size:44px;}
-.crate-item:nth-child(4){transform:rotate(-3deg);}
-.crate-item:nth-child(5){background:var(--gold); transform:rotate(3deg) translateY(-6px); font-size:46px;}
-.crate-item:nth-child(7){transform:rotate(4deg);}
-.crate-item:nth-child(9){transform:rotate(-2deg) translateY(8px);}
+.hero-image img {  width: 100%;   max-width: 500px; height: auto; display: block;}
 
 @media (max-width:820px){
   .hero-inner{grid-template-columns:1fr; padding:40px 20px 44px;}
-  .hero-crate{max-width:320px; margin:8px auto 0;}
+  .hero-image{max-width:320px; margin:8px auto 0;}
   .hero p{max-width:100%;}
 }
 
