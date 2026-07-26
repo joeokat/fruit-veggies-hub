@@ -20,37 +20,38 @@ window.Store = (function () {
     orderCounter: 'fvh_order_counter'
   };
 
-  const categoryLabels = { all: 'All', vegetables: 'Vegetables', fruits: 'Fruits', spices: 'Spices & Herbs' };
+  const categoryLabels = { all: 'All', vegetables: 'Vegetables', fruits: 'Fruits', spices: 'Spices & Herbs', Meat: 'Meat, Fish & Eggs' };
 
   const emojiBank = ['🍅','🧅','🌶️','🍆','🥑','🥦','🥕','🥬','🥒','🫑','🍍','🍉','🍌','🥭','🍊','🍋','🥥','🫚','🧄','🌿','🍏','🍐','🍇','🍈','🍑','🥔','🌽','🫘','🫛','🧡'];
 
   const defaultProducts = [
-    { id:'p1', name:'Fresh Tomatoes', category:'vegetables', price:12, unit:'kg', emoji:'🍅', image:'', available:true },
-    { id:'p2', name:'Red Onions', category:'vegetables', price:9, unit:'kg', emoji:'🧅', image:'', available:true },
-    { id:'p3', name:'Kpakpo Shito Pepper', category:'vegetables', price:15, unit:'kg', emoji:'🌶️', image:'', available:true },
-    { id:'p4', name:'Garden Eggs', category:'vegetables', price:8, unit:'kg', emoji:'🍆', image:'', available:true },
-    { id:'p5', name:'Fresh Okro', category:'vegetables', price:10, unit:'kg', emoji:'🫛', image:'', available:true },
-    { id:'p6', name:'Cabbage', category:'vegetables', price:7, unit:'piece', emoji:'🥬', image:'', available:true },
-    { id:'p7', name:'Carrots', category:'vegetables', price:11, unit:'kg', emoji:'🥕', image:'', available:true },
-    { id:'p8', name:'Cucumber', category:'vegetables', price:6, unit:'piece', emoji:'🥒', image:'', available:true },
-    { id:'p9', name:'Green Beans', category:'vegetables', price:14, unit:'kg', emoji:'🫘', image:'', available:false },
-    { id:'p10', name:'Pineapple', category:'fruits', price:15, unit:'piece', emoji:'🍍', image:'', available:true },
-    { id:'p11', name:'Watermelon', category:'fruits', price:25, unit:'piece', emoji:'🍉', image:'', available:true },
-    { id:'p12', name:'Bananas', category:'fruits', price:8, unit:'bunch', emoji:'🍌', image:'', available:true },
-    { id:'p13', name:'Pawpaw', category:'fruits', price:12, unit:'piece', emoji:'🧡', image:'', available:true },
-    { id:'p14', name:'Oranges', category:'fruits', price:10, unit:'kg', emoji:'🍊', image:'', available:true },
-    { id:'p15', name:'Mangoes', category:'fruits', price:14, unit:'kg', emoji:'🥭', image:'', available:true },
-    { id:'p16', name:'Avocado (Pear)', category:'fruits', price:18, unit:'kg', emoji:'🥑', image:'', available:true },
-    { id:'p17', name:'Coconut', category:'fruits', price:6, unit:'piece', emoji:'🥥', image:'', available:false },
-    { id:'p18', name:'Ginger', category:'spices', price:20, unit:'kg', emoji:'🫚', image:'', available:true },
-    { id:'p19', name:'Garlic', category:'spices', price:22, unit:'kg', emoji:'🧄', image:'', available:true },
-    { id:'p20', name:'Scent Leaves (Nunum)', category:'spices', price:5, unit:'bunch', emoji:'🌿', image:'', available:true }
+    { id:'p1', name:'Fresh Tomatoes', category:'vegetables', price:12, unit:'kg', emoji:'🍅', image:'assets/images/tomatoes.png', available:true },
+    { id:'p2', name:'Red Onions', category:'vegetables', price:9, unit:'kg', emoji:'🧅', image:'assets/images/onions.png', available:true },
+    { id:'p3', name:'Kpakpo Shito Pepper', category:'vegetables', price:15, unit:'kg', emoji:'🌶️', image:'assets/images/red-pepper.png', available:true },
+    { id:'p4', name:'Garden Eggs', category:'vegetables', price:8, unit:'kg', emoji:'🍆', image:'assets/images/garden-eggs-olonka.png', available:true },
+    { id:'p5', name:'Fresh Okro', category:'vegetables', price:10, unit:'kg', emoji:'🫛', image:'assets/images/okro.png', available:true },
+    { id:'p6', name:'Cabbage', category:'vegetables', price:7, unit:'piece', emoji:'🥬', image:'assets/images/cabbage.png', available:true },
+    { id:'p7', name:'Carrots', category:'vegetables', price:11, unit:'kg', emoji:'🥕', image:'assets/images/carrots.png', available:true },
+    { id:'p8', name:'Cucumber', category:'vegetables', price:6, unit:'piece', emoji:'🥒', image:'assets/images/cucumber.png', available:true },
+    { id:'p9', name:'Green Beans', category:'vegetables', price:14, unit:'kg', emoji:'🫘', image:'assets/images/green-beans.png', available:false },
+    { id:'p10', name:'Pineapple', category:'fruits', price:15, unit:'piece', emoji:'🍍', image:'assets/images/pineapple.png', available:true },
+    { id:'p11', name:'Watermelon', category:'fruits', price:25, unit:'piece', emoji:'🍉', image:'assets/images/watermelon.png', available:true },
+    { id:'p12', name:'Bananas', category:'fruits', price:8, unit:'kg', emoji:'🍌', image:'assets/images/bananas.png', available:true },
+    { id:'p13', name:'Pawpaw', category:'fruits', price:12, unit:'piece', emoji:'🧡', image:'assets/images/pawpaw.png', available:true },
+    { id:'p14', name:'Oranges', category:'fruits', price:10, unit:'kg', emoji:'🍊', image:'assets/images/oranges.png', available:true },
+    { id:'p15', name:'Mangoes', category:'fruits', price:14, unit:'kg', emoji:'🥭', image:'assets/images/mangoes.png', available:true },
+    { id:'p16', name:'Avocado (Pear)', category:'fruits', price:18, unit:'kg', emoji:'🥑', image:'assets/images/avocado.png', available:true },
+    { id:'p17', name:'Potatoes', category:'vegetables', price:6, unit:'piece', emoji:'🥔', image:'assets/images/potatoes.png', available:false },
+    { id:'p18', name:'Ginger', category:'spices', price:20, unit:'kg', emoji:'🫚', image:'assets/images/ginger.png', available:true },
+    { id:'p19', name:'Garlic', category:'spices', price:22, unit:'kg', emoji:'🧄', image:'assets/images/garlic.png', available:true },
+    { id:'p20', name:'Scent Leaves (Nunum)', category:'spices', price:5, unit:'bunch', emoji:'🌿', image:'assets/images/scent-leaves.png', available:true },
+    { id:'p21', name:'Aubergine', category:'vegetables', price:8, unit:'kg', emoji:'🍆', image:'assets/images/aubergine.png', available:true },
   ];
 
   const defaultBusiness = {
     name: 'Fruit & Veggies Hub',
     tagline: 'Fresh from the market, straight to your door',
-    phone: '233201234567'
+    phone: '233504438130'
   };
 
   function safeGet(key, fallback){
