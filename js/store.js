@@ -20,7 +20,7 @@ window.Store = (function () {
     orderCounter: 'fvh_order_counter'
   };
 
-  const categoryLabels = { all: 'All', vegetables: 'Vegetables', fruits: 'Fruits', spices: 'Spices & Herbs', Meat: 'Meat, Fish & Eggs' };
+  const categoryLabels = { all: 'All', vegetables: 'Vegetables', fruits: 'Fruits', spices: 'Spices & Herbs', Tubers: 'Roots &Tubers', Meat: 'Meat, Fish & Eggs', Grains: 'Grains & Legumes' };
 
   const emojiBank = ['🍅','🧅','🌶️','🍆','🥑','🥦','🥕','🥬','🥒','🫑','🍍','🍉','🍌','🥭','🍊','🍋','🥥','🫚','🧄','🌿','🍏','🍐','🍇','🍈','🍑','🥔','🌽','🫘','🫛','🧡'];
 
