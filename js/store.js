@@ -50,7 +50,7 @@ window.Store = (function () {
 
   const defaultBusiness = {
     name: 'Fruit & Veggies Hub',
-    tagline: 'Fresh from the market, straight to your door',
+    tagline: 'Local · Fresh · Healthy',
     phone: '233504438130'
   };
 
