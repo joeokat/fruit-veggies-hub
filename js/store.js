@@ -25,9 +25,9 @@ window.Store = (function () {
   const emojiBank = ['🍅','🧅','🌶️','🍆','🥑','🥦','🥕','🥬','🥒','🫑','🍍','🍉','🍌','🥭','🍊','🍋','🥥','🫚','🧄','🌿','🍏','🍐','🍇','🍈','🍑','🥔','🌽','🫘','🫛','🧡'];
 
   const defaultProducts = [
-    { id:'p1', name:'Fresh Tomatoes', category:'vegetables', price:12, unit:'kg', emoji:'🍅', image:'assets/images/tomatoes.png', available:true },
-    { id:'p2', name:'Red Onions', category:'vegetables', price:9, unit:'kg', emoji:'🧅', image:'assets/images/onions.png', available:true },
-    { id:'p3', name:'Red Pepper', category:'vegetables', price:15, unit:'kg', emoji:'🌶️', image:'assets/images/red-pepper.png', available:true },
+    { id:'p1', name:'Fresh Tomatoes', category:'vegetables', price:12, unit:'olonka', emoji:'🍅', image:'assets/images/tomatoes.png', available:true },
+    { id:'p2', name:'Red Onions', category:'vegetables', price:9, unit:'olonka', emoji:'🧅', image:'assets/images/onions.png', available:true },
+    { id:'p3', name:'Red Pepper', category:'vegetables', price:15, unit:'olonka', emoji:'🌶️', image:'assets/images/red-pepper.png', available:true },
     { id:'p4', name:'Garden Eggs', category:'vegetables', price:8, unit:'kg', emoji:'🍆', image:'assets/images/garden-eggs-olonka.png', available:true },
     { id:'p5', name:'Fresh Okro', category:'vegetables', price:10, unit:'kg', emoji:'🫛', image:'assets/images/okro.png', available:true },
     { id:'p6', name:'Cabbage', category:'vegetables', price:7, unit:'piece', emoji:'🥬', image:'assets/images/cabbage.png', available:true },
@@ -51,7 +51,7 @@ window.Store = (function () {
     {id:'p24', name:'Egg', category:'meat', price:2, unit:'piece', emoji:'🥚', image:'assets/images/egg.png', available:true},
     {id:'p25', name:'Chicken Wings (hard)', category:'meat', price:20, unit:'kg', emoji:'🍗', image:'assets/images/chicken-wings-hard.png', available:true},
     {id:'p26', name:'Chicken Drumsticks', category:'meat', price:20, unit:'kg', emoji:'🍗', image:'assets/images/chicken-drumsticks.png', available:true},
-    {id:'p27', name:'Fresh Gizzard', category:'meat', price:20, unit:'kg', emoji:'🍗', image:'assets/images/fresh-gizzard.png', available:true},
+    {id:'p27', name:'Fresh Gizzard', category:'meat', price:20, unit:'pound', emoji:'🍗', image:'assets/images/fresh-gizzard.png', available:true},
     {id:'p28', name:'Chicken Thighs (hard)', category:'meat', price:20, unit:'kg', emoji:'🍗', image:'assets/images/hard-chicken-thighs.png', available:true},
     {id:'p29', name:'Lime', category:'fruits', price:2, unit:'kg', emoji:'🍋', image:'assets/images/lime.png', available:true},
     {id:'p30', name:'Rice', category:'grains', price:10, unit:'kg', emoji:'🍚', image:'assets/images/5k-rice.png', available:true},
@@ -59,21 +59,21 @@ window.Store = (function () {
     {id:'p32', name:'Corn Dough', category:'grains', price:12, unit:'kg', emoji:'🌽', image:'assets/images/corn-dough.png', available:true},
     {id:'p33', name:'Beetroot', category:'tubers', price:12, unit:'kg', emoji:' Beetroot', image:'assets/images/beetroot.png', available:true},
     {id:'p34', name:'Soybeans', category:'grains', price:12, unit:'kg', emoji:'🌽', image:'assets/images/soybeans.png', available:true},
-    {id:'p35', name:'Eggs (half crate)', category:'meat', price:2, unit:'piece', emoji:'🥚', image:'assets/images/half-eggs.png', available:true},
-    {id:'p36', name:'Eggs (full crate)', category:'meat', price:2, unit:'piece', emoji:'🥚', image:'assets/images/full-eggs.png', available:true},
-    {id:'p37', name:'Egg (White)', category:'meat', price:2, unit:'piece', emoji:'🥚', image:'assets/images/egg-white.png', available:true},
+    {id:'p35', name:'Eggs (half crate)', category:'meat', price:2, unit:'crate', emoji:'🥚', image:'assets/images/half-eggs.png', available:true},
+    {id:'p36', name:'Eggs (full crate)', category:'meat', price:2, unit:'crate', emoji:'🥚', image:'assets/images/full-eggs.png', available:true},
+    {id:'p37', name:'Egg (White)', category:'meat', price:2, unit:'crate', emoji:'🥚', image:'assets/images/egg-white.png', available:true},
     {id:'p38', name:'Plantain', category:'tubers', price:12, unit:'kg', emoji:'🍌', image:'assets/images/plantain.png', available:true },
     {id:'p39', name:'Ripe Plantain', category:'tubers', price:12, unit:'kg', emoji:'🍌', image:'assets/images/ripe-plantain.png', available:true },
     {id:'p40', name:'Plantain (big)', category:'tubers', price:12, unit:'kg', emoji:'🍌', image:'assets/images/plantain-big.png', available:true },
-    {id: 'p41', name: 'Wele (hard)', category: 'meat', price: 12, unit: 'kg', emoji: '🍗', image: 'assets/images/wele-hard.png', available: true },
-    {id: 'p42', name: 'Wele (soft)', category: 'meat', price: 12, unit: 'kg', emoji: '🍗', image: 'assets/images/wele-soft.png', available: true },
+    {id: 'p41', name: 'Wele (hard)', category: 'meat', price: 12, unit: 'pound', emoji: '🍗', image: 'assets/images/wele-hard.png', available: true },
+    {id: 'p42', name: 'Wele (soft)', category: 'meat', price: 12, unit: 'pound', emoji: '🍗', image: 'assets/images/wele-soft.png', available: true },
     { id:'p43', name:'Yellow Bonnets', category:'vegetables', price:15, unit:'kg', emoji:'🌶️', image:'assets/images/yellow-bonnets.png', available:true },
     {id: 'p45', name:'Turkey Berries', category:'vegetables', price:10, unit:'kg', emoji:'🫛', image:'assets/images/turkey-berries.png', available:true },
     {id: 'p44', name: 'Shallots', category: 'vegetables', price: 12, unit: 'kg', emoji: '🧅', image: 'assets/images/shallots.png', available: true },
     {id: 'p46', name: 'Spinach', category: 'vegetables', price: 12, unit: 'kg', emoji: '🥬', image: 'assets/images/spinach.png', available: true },
     {id: 'p47', name: 'Zucchini', category: 'vegetables', price: 12, unit: 'kg', emoji: '🥒', image: 'assets/images/zucchinis.png', available: true },
     { id:'p48', name:'Green Bonnets', category:'vegetables', price:15, unit:'kg', emoji:'🌶️', image:'assets/images/green-bonnets.png', available:true },
-    {id:'p49', name: 'Fresh Tilapia', category: 'meat', price: 20, unit: 'kg', emoji: '🍗', image: 'assets/images/fresh-tilapia.png', available: true, name: 'Fresh Tilapia'},
+    {id:'p49', name: 'Fresh Tilapia', category: 'meat', price: 20, unit: 'pound', emoji: '🍗', image: 'assets/images/fresh-tilapia.png', available: true, name: 'Fresh Tilapia'},
     {id:'p50', name: 'Cocoyam', category: 'tubers', price: 12, unit: 'kg', emoji: '🥔', image: 'assets/images/cocoyam-root.png', available: false},
     {id:'p51', name: 'Cloves', category: 'spices', price: 10, unit: 'kg', emoji: '🫛', image: 'assets/images/cloves.png', available: true},
     {id:'p52', name: 'Cooking Oil', category: 'vegetables', price: 15, unit: 'litre', emoji: '🫛', image: 'assets/images/cooking-oil.png', available: true},
@@ -90,7 +90,7 @@ window.Store = (function () {
   const defaultBusiness = {
     name: 'Fruit & Veggies Hub',
     tagline: 'Local · Fresh · Healthy',
-    phone: '233504438130'
+    phone: '233261430256'
   };
 
   function safeGet(key, fallback){
